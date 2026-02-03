@@ -19,18 +19,32 @@ This repository is a **plugin marketplace** — a curated collection of Claude C
 
 ## Installation
 
-### Install the full marketplace
+### Step 1: Add the marketplace
 
 ```bash
-claude /plugins install https://github.com/LinuxIsCool/claude-plugins3-public
+/plugin marketplace add LinuxIsCool/claude-plugins3-public
 ```
 
-### Install individual plugins
+This registers the marketplace catalog with Claude Code but does not install any plugins yet.
+
+### Step 2: Install plugins
 
 ```bash
-# From the marketplace
-claude /plugins install logging@linuxiscool-claude-plugins3-public
-claude /plugins install awareness@linuxiscool-claude-plugins3-public
+/plugin install hello@linuxiscool-claude-plugins3-public
+/plugin install logging@linuxiscool-claude-plugins3-public
+/plugin install awareness@linuxiscool-claude-plugins3-public
+/plugin install observatory@linuxiscool-claude-plugins3-public
+/plugin install writing@linuxiscool-claude-plugins3-public
+```
+
+### Scopes
+
+Plugins can be installed at different scopes:
+
+```bash
+/plugin install logging@linuxiscool-claude-plugins3-public --scope user     # For you, all projects
+/plugin install logging@linuxiscool-claude-plugins3-public --scope project  # For all collaborators
+/plugin install logging@linuxiscool-claude-plugins3-public --scope local    # For you, this repo only
 ```
 
 ## Plugin Structure

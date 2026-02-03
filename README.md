@@ -39,13 +39,34 @@ Writing assistant with structured workflows:
 
 ## Quick Start
 
-```bash
-# Install all plugins from this marketplace
-claude /plugins install https://github.com/LinuxIsCool/claude-plugins3-public
+### 1. Add the marketplace
 
-# Or install individually
-claude /plugins install logging@linuxiscool-claude-plugins3-public
-claude /plugins install awareness@linuxiscool-claude-plugins3-public
+```bash
+/plugin marketplace add LinuxIsCool/claude-plugins3-public
+```
+
+### 2. Install plugins
+
+```bash
+# Install individual plugins
+/plugin install logging@linuxiscool-claude-plugins3-public
+/plugin install awareness@linuxiscool-claude-plugins3-public
+/plugin install observatory@linuxiscool-claude-plugins3-public
+/plugin install writing@linuxiscool-claude-plugins3-public
+```
+
+### 3. Manage
+
+```bash
+# List installed marketplaces
+/plugin marketplace list
+
+# Update marketplace to latest
+/plugin marketplace update linuxiscool-claude-plugins3-public
+
+# Disable/enable a plugin
+/plugin disable logging@linuxiscool-claude-plugins3-public
+/plugin enable logging@linuxiscool-claude-plugins3-public
 ```
 
 ## Plugin Development
