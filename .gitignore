@@ -1,0 +1,57 @@
+# Claude Code local data
+.claude/local/
+.claude/logging/
+.claude/autocommit.log
+.claude/settings.local.json
+.claude/commands/
+.claude/journal/
+.claude/output-styles/
+.claude/rules/
+
+# Databases
+**/*.db
+**/*.sqlite
+**/*.sqlite3
+
+# Session data
+**/*.jsonl
+
+# Python
+**/__pycache__/
+**/.venv/
+**/venv/
+**/*.pyc
+**/*.pyo
+**/*.egg-info/
+
+# Node.js
+**/node_modules/
+**/.next/
+**/out/
+**/*.tsbuildinfo
+
+# IDE
+.idea/
+.vscode/
+**/*.swp
+**/*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+**/dist/
+**/build/
+**/staticfiles/
+
+# Worktrees
+.worktrees/
+
+# Logs
+**/*.log
+**/debug.log
+
+# Environment
+**/.env
+**/.env.local

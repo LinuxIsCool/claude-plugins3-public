@@ -1,0 +1,40 @@
+{
+  "name": "linuxiscool-claude-plugins3-public",
+  "version": "1.0.0",
+  "owner": {
+    "name": "linuxiscool",
+    "url": "https://github.com/linuxiscool"
+  },
+  "plugins": [
+    {
+      "name": "hello",
+      "description": "Starter plugin with greeting skill, marketplace scaffolding tools, and templates",
+      "source": "./plugins/hello/"
+    },
+    {
+      "name": "logging",
+      "description": "Conversation logging with search, embeddings, web UI, and session management",
+      "source": "./plugins/logging/"
+    },
+    {
+      "name": "awareness",
+      "description": "Contextual intelligence about Claude Code ecosystem - documentation, community insights, and plugin capabilities",
+      "source": "./plugins/awareness/"
+    },
+    {
+      "name": "awareness-test",
+      "description": "Test agents for awareness plugin capabilities",
+      "source": "./plugins/awareness-test/"
+    },
+    {
+      "name": "observatory",
+      "description": "Django-based metadata observatory for tracking plugins, skills, agents, sessions, and knowledge",
+      "source": "./plugins/observatory/"
+    },
+    {
+      "name": "writing",
+      "description": "Writing assistant with recursive why practice, research workflows, and essay tools",
+      "source": "./plugins/writing/"
+    }
+  ]
+}

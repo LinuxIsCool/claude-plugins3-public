@@ -1,0 +1,223 @@
+# {{MARKETPLACE_NAME}}
+
+{{PLUGIN_DESCRIPTION}}
+
+---
+
+## Worktree Enforcement (READ FIRST)
+
+**Before ANY file edits, code changes, or implementation work:**
+
+```bash
+# MANDATORY CHECK - Run this EVERY TIME before editing
+pwd
+git branch --show-current
+```
+
+**If working on a feature:**
+1. You MUST be in `.worktrees/{feature-name}/` directory
+2. You MUST be on `feature/{feature-name}` branch
+3. If either is wrong, STOP and `cd` to the correct worktree
+
+**Common Mistake:** Creating a worktree but continuing to work in main. This puts your changes on the WRONG BRANCH.
+
+**Verification Pattern:**
+```bash
+# After creating worktree, IMMEDIATELY run:
+cd .worktrees/{feature-name}
+pwd  # Should show .worktrees/{feature-name}
+git branch --show-current  # Should show feature/{feature-name}
+# ONLY THEN proceed with work
+```
+
+**For Subagents:** When launching Task agents for feature work, include the worktree path in the prompt:
+> "Working in /path/to/.worktrees/feature-name on branch feature/feature-name..."
+
+---
+
+## Agent Output Strategy
+
+**Agents MUST write substantial results to files** instead of returning large outputs inline. This prevents context explosion.
+
+### Rules
+
+1. **Large outputs (>5KB)**: Write to `.claude/local/specs/` or project-specific location
+2. **SQL schemas**: Write to `.claude/local/schemas/` with descriptive filenames
+3. **Reports**: Write to `.claude/local/reports/YYYY/MM/DD/` with timestamps
+4. **Return summary only**: Agent response should summarize what was written and where
+
+### Pattern
+
+```
+Agent writes: .claude/local/schemas/project/tables.sql (12KB)
+Agent returns: "Created tables schema with 5 tables. See .claude/local/schemas/project/tables.sql"
+```
+
+### Output Locations
+
+| Content Type | Location |
+|--------------|----------|
+| SQL schemas | `.claude/local/schemas/{project}/` |
+| Discovery reports | `.claude/local/reports/YYYY/MM/DD/` |
+| API specs | `.claude/local/specs/YYYY/MM/{project}/` |
+| Temporary analysis | Scratchpad directory |
+
+---
+
+## Plugin Development Notes
+
+### Plugin Caching
+
+Claude Code caches plugins at install time. When you modify plugin source files locally, **the changes won't take effect until you update the cache**.
+
+#### How It Works
+
+1. **Source files**: `plugins/{{PLUGIN_NAME}}/hooks/script.py` (your edits)
+2. **Cache location**: `~/.claude/plugins/cache/{{MARKETPLACE_NAME}}/{plugin}/{version}/`
+3. **Claude Code uses**: The CACHED version, not your local source
+
+#### When to Update the Cache
+
+Update the cache after modifying:
+- Hook scripts (`hooks/*.py`)
+- Plugin manifest (`plugin.json`)
+- Skills, commands, or agents
+- Any file referenced by `${CLAUDE_PLUGIN_ROOT}`
+
+#### How to Update the Cache
+
+**Option 1: Quick update (for testing)**
+```bash
+# Copy your changes directly to the cache
+cp plugins/{{PLUGIN_NAME}}/hooks/script.py \
+   ~/.claude/plugins/cache/{{MARKETPLACE_NAME}}/{{PLUGIN_NAME}}/1.0.0/hooks/
+
+# Changes take effect on next hook invocation
+```
+
+**Option 2: Full reinstall**
+```bash
+# Remove from cache and reinstall via /plugins command in Claude Code
+rm -rf ~/.claude/plugins/cache/{{MARKETPLACE_NAME}}/{{PLUGIN_NAME}}/
+
+# Then in Claude Code:
+# /plugins install {{PLUGIN_NAME}}
+```
+
+**Option 3: Bump version**
+Update `version` in `plugins/{{PLUGIN_NAME}}/.claude-plugin/plugin.json`, then reinstall.
+
+#### Checking Cache Status
+
+```bash
+# See what version is cached
+ls ~/.claude/plugins/cache/{{MARKETPLACE_NAME}}/{{PLUGIN_NAME}}/
+
+# Compare cached vs local
+diff plugins/{{PLUGIN_NAME}}/hooks/script.py \
+     ~/.claude/plugins/cache/{{MARKETPLACE_NAME}}/{{PLUGIN_NAME}}/1.0.0/hooks/script.py
+```
+
+---
+
+## Git Worktrees for Feature Development
+
+Use **git worktrees** so multiple Claudes can work on different features simultaneously without branch conflicts.
+
+### The Golden Rule
+
+**ALWAYS `cd` into the worktree before making any changes.** If you edit files from main while a worktree exists, your changes go to the wrong branch.
+
+```bash
+# Check where you are
+pwd
+git branch --show-current
+
+# If not in worktree, go there
+cd .worktrees/my-feature
+```
+
+### Quick Reference
+
+```bash
+# Create new feature worktree
+git worktree add .worktrees/my-feature -b feature/my-feature
+
+# List worktrees
+git worktree list
+
+# Work in worktree
+cd .worktrees/my-feature
+# ... make changes ...
+git add -A && git commit -m "Add feature"
+git push -u origin feature/my-feature
+
+# After PR merged, cleanup
+git worktree remove .worktrees/my-feature
+git branch -d feature/my-feature
+```
+
+### What Goes Where?
+
+| Change Type | Where to Commit |
+|-------------|-----------------|
+| Feature code | Worktree (feature branch) |
+| CLAUDE.md updates | Main repo (main branch) - affects all Claudes |
+| .gitignore changes | Main repo (main branch) |
+
+---
+
+## Directory Structure
+
+```
+{{MARKETPLACE_NAME}}/
+├── .claude-plugin/
+│   └── marketplace.json      # Declares all plugins
+├── plugins/
+│   └── {{PLUGIN_NAME}}/      # First plugin
+│       ├── .claude-plugin/
+│       │   └── plugin.json
+│       ├── skills/
+│       ├── commands/
+│       ├── hooks/
+│       ├── agents/
+│       └── output-styles/
+├── CLAUDE.md                 # This file
+└── README.md                 # Project documentation
+```
+
+---
+
+## Adding New Plugins
+
+1. Create plugin directory structure:
+   ```bash
+   mkdir -p plugins/new-plugin/.claude-plugin
+   mkdir -p plugins/new-plugin/{skills,commands,hooks,agents}
+   ```
+
+2. Create `plugins/new-plugin/.claude-plugin/plugin.json`:
+   ```json
+   {
+     "name": "new-plugin",
+     "version": "1.0.0",
+     "description": "Description here",
+     "skills": "./skills/",
+     "commands": "./commands/"
+   }
+   ```
+
+3. Add to `.claude-plugin/marketplace.json`:
+   ```json
+   {
+     "name": "new-plugin",
+     "description": "Description here",
+     "source": "./plugins/new-plugin/"
+   }
+   ```
+
+---
+
+## Author
+
+{{OWNER_NAME}} - {{OWNER_URL}}

@@ -1,0 +1,27 @@
+---
+description: {{PLUGIN_DESCRIPTION}}
+model: haiku
+argument-hint: [args]
+---
+
+# Instructions
+
+This is a template command for the {{PLUGIN_NAME}} plugin.
+
+## Usage
+
+```
+/{{PLUGIN_NAME}}:hello [arguments]
+```
+
+## Behavior
+
+When invoked:
+1. Parse any provided arguments from $ARGUMENTS
+2. Execute the command logic
+3. Return results to the user
+
+## Examples
+
+- `/{{PLUGIN_NAME}}:hello` - Basic invocation
+- `/{{PLUGIN_NAME}}:hello world` - With argument

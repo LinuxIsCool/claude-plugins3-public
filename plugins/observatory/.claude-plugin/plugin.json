@@ -1,0 +1,13 @@
+{
+  "name": "observatory",
+  "version": "1.0.0",
+  "description": "Claude Code Observatory - Complete visibility into all Claude Code data via Django REST API and Admin UI",
+  "author": "Claude Code",
+  "homepage": "https://github.com/anthropics/claude-code",
+  "skills": [
+    "skills/observatory/SKILL.md"
+  ],
+  "agents": [],
+  "commands": [],
+  "hooks": []
+}

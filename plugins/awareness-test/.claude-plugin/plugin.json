@@ -1,0 +1,31 @@
+{
+  "name": "awareness-test",
+  "version": "0.1.0-test",
+  "description": "Awareness plugin test build - contextual awareness for Claude Code",
+  "author": "awareness-research",
+  "license": "MIT",
+  "homepage": "https://github.com/linuxiscool/claude-plugins3",
+  "keywords": ["awareness", "introspection", "documentation", "ecosystem"],
+
+  "skills": {
+    "awareness": {
+      "description": "Query awareness system for ecosystem, docs, and community info"
+    },
+    "introspection": {
+      "description": "Deep ecosystem introspection (plugins, skills, agents, hooks)"
+    },
+    "external": {
+      "description": "Documentation search and community intelligence"
+    },
+    "metabolic": {
+      "description": "Workflow optimization, session context, and proactive suggestions"
+    }
+  },
+
+  "agents": [
+    "./agents/awareness-explorer.md",
+    "./agents/doc-watcher.md",
+    "./agents/community-watcher.md",
+    "./agents/ecosystem-scanner.md"
+  ]
+}

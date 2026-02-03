@@ -1,0 +1,46 @@
+---
+name: {{SKILL_NAME}}
+description: |
+  This skill should be used when the user asks to "{{SKILL_NAME}}" or
+  mentions related tasks. Provides guidance for {{SKILL_NAME}} workflows.
+---
+
+# {{SKILL_NAME}} Skill
+
+Brief description of what this skill does.
+
+## When to Use
+
+Describe the trigger conditions and use cases.
+
+## Instructions
+
+Step-by-step guidance for executing this skill.
+
+### Step 1: Gather Information
+
+Collect necessary context before proceeding.
+
+### Step 2: Execute Task
+
+Perform the core task.
+
+### Step 3: Verify
+
+Confirm the task completed successfully.
+
+## Examples
+
+### Example 1: Basic Usage
+
+```
+/{{PLUGIN_NAME}}:{{SKILL_NAME}}
+```
+
+Describe what happens.
+
+## Additional Resources
+
+For detailed documentation, see:
+- `references/patterns.md` - Common patterns (create if needed)
+- `examples/` - Working examples (add as developed)

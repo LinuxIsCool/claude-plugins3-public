@@ -1,0 +1,9 @@
+{
+  "name": "awareness",
+  "version": "0.1.0",
+  "description": "Contextual intelligence about Claude Code ecosystem - documentation, community insights, and plugin capabilities",
+  "author": {
+    "name": "Awareness Plugin Development"
+  },
+  "keywords": ["awareness", "documentation", "ecosystem", "intelligence", "context"]
+}

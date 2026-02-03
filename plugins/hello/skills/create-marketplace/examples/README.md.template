@@ -1,0 +1,76 @@
+# {{MARKETPLACE_NAME}}
+
+A Claude Code plugin marketplace.
+
+## Overview
+
+{{PLUGIN_DESCRIPTION}}
+
+## Installation
+
+Add this marketplace to your Claude Code configuration:
+
+```bash
+# Clone the repository
+git clone https://github.com/{{OWNER_NAME}}/{{MARKETPLACE_NAME}}.git
+
+# Install plugins
+cd {{MARKETPLACE_NAME}}
+claude --plugin-dir ./plugins/{{PLUGIN_NAME}}
+```
+
+## Available Plugins
+
+| Plugin | Description |
+|--------|-------------|
+| {{PLUGIN_NAME}} | {{PLUGIN_DESCRIPTION}} |
+
+## Development
+
+### Adding a New Plugin
+
+1. Create plugin directory:
+   ```bash
+   mkdir -p plugins/my-plugin/.claude-plugin
+   mkdir -p plugins/my-plugin/{skills,commands,hooks,agents}
+   ```
+
+2. Create plugin manifest (`plugins/my-plugin/.claude-plugin/plugin.json`):
+   ```json
+   {
+     "name": "my-plugin",
+     "version": "1.0.0",
+     "description": "Description here",
+     "skills": "./skills/",
+     "commands": "./commands/"
+   }
+   ```
+
+3. Add to marketplace manifest (`.claude-plugin/marketplace.json`):
+   ```json
+   {
+     "name": "my-plugin",
+     "source": "./plugins/my-plugin/"
+   }
+   ```
+
+### Plugin Caching
+
+Claude Code caches plugins. After modifying plugin files:
+
+```bash
+# Option 1: Copy to cache directly
+cp plugins/my-plugin/file.py ~/.claude/plugins/cache/{{MARKETPLACE_NAME}}/my-plugin/1.0.0/
+
+# Option 2: Reinstall
+rm -rf ~/.claude/plugins/cache/{{MARKETPLACE_NAME}}/my-plugin/
+# Then /plugins install my-plugin in Claude Code
+```
+
+## License
+
+MIT
+
+## Author
+
+{{OWNER_NAME}} - {{OWNER_URL}}
